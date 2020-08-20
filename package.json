@@ -1,0 +1,22 @@
+{
+  "name": "vip-testing",
+  "version": "0.5.0",
+  "description": "e2e Testing Suite for VIP Go",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress": "cypress open",
+    "cypress:headless": "cypress run --headless"
+  },
+  "author": "Jake Spurlock",
+  "license": "WTFPL",
+  "dependencies": {
+    "cypress": "^5.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-cypress": "^2.11.1",
+    "eslint-plugin-import": "^2.22.0"
+  }
+}
