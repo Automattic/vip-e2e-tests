@@ -37,7 +37,7 @@ describe('WordPress Admin Tests', () => {
       cy.get('.display-name').should('contain', 'Admin');
     });
 
-    it('can visit /wp-admin/options-general.php and read options', () => {
+    it('can visit /wp-admin/options-general.php and write options', () => {
       // let's ensure that the permalinks are set to the correct setting, and in this case, force.
       cy.visit('/wp-admin/options-permalink.php');
       cy.get('.wrap h1').should('contain', 'Permalink Settings');
