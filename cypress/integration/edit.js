@@ -28,18 +28,12 @@ describe('WordPress Editor Tests', () => {
       });
 
       it('can update some paragraph options', () => {
-        cy.get('.block-editor-panel-color-gradient-settings__panel-title')
-          .click()
-          .get(':nth-child(2) > .components-base-control__field > fieldset > .components-circular-option-picker > :nth-child(1) > .components-button')
-          .click()
-          .get(':nth-child(3) > .components-base-control__field > fieldset > .components-circular-option-picker > :nth-child(2) > .components-button')
-          .click()
-          .get(':nth-child(2) > .components-base-control__field > fieldset > .components-circular-option-picker > :nth-child(5) > .components-button')
-          .click()
-          .get('.block-editor-panel-color-gradient-settings > .components-panel__body-title > .components-button')
-          .click()
-          .get('.block-editor-panel-color-gradient-settings > .components-panel__body-title > .components-button')
-          .click();
+        cy.get('.block-editor-panel-color-gradient-settings__panel-title').click();
+        cy.get(':nth-child(2) > .components-base-control__field > fieldset > .components-circular-option-picker > :nth-child(1) > .components-button').click();
+        cy.get(':nth-child(3) > .components-base-control__field > fieldset > .components-circular-option-picker > :nth-child(2) > .components-button').click();
+        cy.get(':nth-child(2) > .components-base-control__field > fieldset > .components-circular-option-picker > :nth-child(5) > .components-button').click();
+        cy.get('.block-editor-panel-color-gradient-settings > .components-panel__body-title > .components-button').click();
+        cy.get('.block-editor-panel-color-gradient-settings > .components-panel__body-title > .components-button').click();
       });
 
       it('can save a draft', () => {
