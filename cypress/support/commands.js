@@ -24,15 +24,26 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('loginByForm', (username, password) => { // eslint-ignore
+Cypress.Commands.add("loginByForm", () => {
+  // eslint-ignore
+  const username = Cypress.env("username");
+  const password = Cypress.env("password");
+
+  // it is ok for the username to be visible in the Command Log
+  expect(username, "username was set").to.be.a("string").and.not.be.empty;
+  // but the password value should not be shown
+  if (typeof password !== "string" || !password) {
+    throw new Error("Missing password value, set in cypress.env.json");
+  }
+
   Cypress.log({
-    name: 'loginByForm',
+    name: "loginByForm",
     message: `${username} | ${password}`,
   });
 
   return cy.request({
-    method: 'POST',
-    url: 'http://localhost:8000/wp-login.php', // baseUrl will be prepended to this url
+    method: "POST",
+    url: "/wp-login.php", // baseUrl will be prepended to this url
     form: true,
     body: {
       log: username,
