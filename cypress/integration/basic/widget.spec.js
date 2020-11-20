@@ -10,7 +10,6 @@ describe('WordPress Wedgnt Tests', () => {
 		it('can visit /wp-admin/widgets.php', () => {
 			// after cy.request, the session cookie has been set
 			// and we can visit a protected page
-
 			cy.visit('/wp-admin/widgets.php');
 			cy.get('h1.wp-heading-inline').should('contain', 'Widgets');
 		});
@@ -20,7 +19,7 @@ describe('WordPress Wedgnt Tests', () => {
 				cy.get('#widgets-right .widgets-holder-wrap .widget')
 					.its('length')
 					.then((preAddWidgetCount) => {
-						cy.get('.widget-title').first().click();
+						cy.get('.widget-title h3').contains('Archives').click();
 						cy.get('.widgets-chooser-add').click();
 
 						cy.get(
@@ -29,15 +28,34 @@ describe('WordPress Wedgnt Tests', () => {
 					});
 			});
 
+			it('can modify a widget a widget', () => {
+				cy.get('#widgets-right .widgets-holder-wrap .widget-title h3')
+					.contains('Archives')
+					.first()
+					.click();
+				cy.get('#widgets-right .widgets-holder-wrap .widget.open')
+					.first()
+					.find('input[type="text"]')
+					.type('A widget title');
+				cy.get('#widgets-right .widgets-holder-wrap .widget.open')
+					.first()
+					.find('input.button-primary')
+					.click();
+			});
+
 			it('can delete a widget', () => {
 				cy.get('#widgets-right .widgets-holder-wrap .widget')
 					.its('length')
 					.then((preAddWidgetCount) => {
-						cy.get('#widgets-right .widgets-holder-wrap .widget')
+						cy.get(
+							'#widgets-right .widgets-holder-wrap .widget-title h3'
+						)
+							.contains('Archives')
 							.first()
-							.find('.widget-title')
 							.click();
-						cy.get('#widgets-right .widgets-holder-wrap .widget')
+						cy.get(
+							'#widgets-right .widgets-holder-wrap .widget.open'
+						)
 							.first()
 							.find('.button-link-delete')
 							.click();
@@ -46,29 +64,6 @@ describe('WordPress Wedgnt Tests', () => {
 						).should('have.length', preAddWidgetCount - 1);
 					});
 			});
-
-			/*
-			it('can update some paragraph options', () => {
-				cy.get(
-					'.block-editor-panel-color-gradient-settings__panel-title'
-				).click();
-				cy.get(
-					':nth-child(2) > .components-base-control__field > fieldset > .components-circular-option-picker > :nth-child(1) > .components-button'
-				).click();
-				cy.get(
-					':nth-child(3) > .components-base-control__field > fieldset > .components-circular-option-picker > :nth-child(2) > .components-button'
-				).click();
-				cy.get(
-					':nth-child(2) > .components-base-control__field > fieldset > .components-circular-option-picker > :nth-child(5) > .components-button'
-				).click();
-				cy.get(
-					'.block-editor-panel-color-gradient-settings > .components-panel__body-title > .components-button'
-				).click();
-				cy.get(
-					'.block-editor-panel-color-gradient-settings > .components-panel__body-title > .components-button'
-				).click();
-			});
-        */
 		});
 	});
 });
