@@ -1,10 +1,8 @@
 describe('WordPress Wedgnt Tests', () => {
 	context('Login ahead of tests', () => {
-		Cypress.Cookies.defaults({
-			preserve: /wordpress_.*/,
-		});
 		before(() => {
 			cy.loginByForm();
+			cy.setDefaults();
 		});
 
 		it('can visit /wp-admin/widgets.php', () => {
@@ -33,6 +31,7 @@ describe('WordPress Wedgnt Tests', () => {
 					.contains('Archives')
 					.first()
 					.click();
+				cy.wait(500);
 				cy.get('#widgets-right .widgets-holder-wrap .widget.open')
 					.first()
 					.find('input[type="text"]')
