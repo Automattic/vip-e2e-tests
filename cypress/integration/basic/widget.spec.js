@@ -28,7 +28,7 @@ describe('WordPress Wedgnt Tests', () => {
 					});
 			});
 
-			it('can modify a widget a widget', () => {
+			it('can modify a widget', () => {
 				cy.get('#widgets-right .widgets-holder-wrap .widget-title h3')
 					.contains('Archives')
 					.first()
