@@ -24,30 +24,64 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-Cypress.Commands.add("loginByForm", () => {
-  // eslint-ignore
-  const username = Cypress.env("username");
-  const password = Cypress.env("password");
+Cypress.Commands.add('loginByForm', () => {
+	// eslint-ignore
+	const username = Cypress.env('username');
+	const password = Cypress.env('password');
 
-  // it is ok for the username to be visible in the Command Log
-  expect(username, "username was set").to.be.a("string").and.not.be.empty;
-  // but the password value should not be shown
-  if (typeof password !== "string" || !password) {
-    throw new Error("Missing password value, set in cypress.env.json");
-  }
+	// it is ok for the username to be visible in the Command Log
+	expect(username, 'username was set').to.be.a('string').and.not.be.empty;
+	// but the password value should not be shown
+	if (typeof password !== 'string' || !password) {
+		throw new Error('Missing password value, set in cypress.env.json');
+	}
 
-  Cypress.log({
-    name: "loginByForm",
-    message: `${username} | ${password}`,
-  });
+	Cypress.log({
+		name: 'loginByForm',
+		message: `${username} | ${password}`,
+	});
 
-  return cy.request({
-    method: "POST",
-    url: "/wp-login.php", // baseUrl will be prepended to this url
-    form: true,
-    body: {
-      log: username,
-      pwd: password,
-    },
-  });
+	return cy.request({
+		method: 'POST',
+		url: '/wp-login.php', // baseUrl will be prepended to this url
+		form: true,
+		body: {
+			log: username,
+			pwd: password,
+		},
+	});
+});
+
+// Clearing the block editor welcome box
+Cypress.Commands.add('clearBlockWelcmeBox', () => {
+	cy.get('.components-button.components-guide__forward-button')
+		.click()
+		.click()
+		.click();
+	cy.get(
+		'.components-button.components-guide__finish-button.is-primary'
+	).click();
+});
+
+// If we need to log out we have to do a lot of work to clear
+// cookies
+Cypress.Commands.add('clearDefaults', () => {
+	// Empty defaults
+	Cypress.Cookies.defaults({
+		preserve: [],
+	});
+
+	//Clear localStrage
+	cy.clearLocalStorage();
+
+	//Clear Cookies
+	cy.clearCookies();
+});
+
+// Some admin screens that make use of admin-ajax.php need to preserve the
+// cookie accross tests, when we don't want to log in before each test.
+Cypress.Commands.add('setDefaults', () => {
+	Cypress.Cookies.defaults({
+		preserve: /wordpress_.*/,
+	});
 });

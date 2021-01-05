@@ -12,6 +12,9 @@ describe('Logging In - WordPress Admin', () => {
 
 	context('Unauthorized', () => {
 		it('is redirected on visit to /wp-login.php when no session', () => {
+			// Just to be certain we aren't already logged in.
+			cy.clearDefaults();
+
 			// we must have a valid session cookie to be logged
 			// in else we are redirected to /unauthorized
 			cy.visit('/wp-admin/');
@@ -21,6 +24,9 @@ describe('Logging In - WordPress Admin', () => {
 		});
 
 		it('is redirected using cy.request', () => {
+			// Just to be certain we aren't already logged in.
+			cy.clearDefaults();
+
 			// instead of visiting the page above we can test this by issuing
 			// a cy.request, checking the status code and redirectedToUrl property.
 
@@ -57,8 +63,8 @@ describe('Logging In - WordPress Admin', () => {
 		it('displays errors on login', () => {
 			cy.wait(500);
 			// incorrect username on purpose
-			cy.get('input[name=log]').type('jane.wordpress');
-			cy.get('input[name=pwd]').type('password123{enter}');
+			cy.get('input[name=log]').clear().type('jane.wordpress');
+			cy.get('input[name=pwd]').clear().type('password123{enter}');
 
 			// we should have visible errors now
 			cy.get('div#login_error')
@@ -74,8 +80,8 @@ describe('Logging In - WordPress Admin', () => {
 
 		it('redirects to /wp-admin/ on success', () => {
 			cy.wait(1000);
-			cy.get('input[name=log]').type(username);
-			cy.get('input[name=pwd]').type(password);
+			cy.get('input[name=log]').clear().type(username);
+			cy.get('input[name=pwd]').clear().type(password);
 			cy.get('form').submit();
 
 			// we should be redirected to /wp-admin/
