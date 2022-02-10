@@ -30,7 +30,7 @@ Cypress.Commands.add('loginByForm', () => {
   const password = Cypress.env('password');
 
   // it is ok for the username to be visible in the Command Log
-  expect(username, 'username was set').to.be.a('string').and.not.be.empty;
+  expect(username, 'username was set').to.be.a('string');
   // but the password value should not be shown
   if (typeof password !== 'string' || !password) {
     throw new Error('Missing password value, set in cypress.env.json');
@@ -58,7 +58,7 @@ Cypress.Commands.add('clearBlockWelcomeBox', () => {
     .click()
     .click()
     .click();
-    cy.get('.components-guide__finish-button').click();
+  cy.get('.components-guide__finish-button').click();
 });
 
 // If we need to log out we have to do a lot of work to clear
@@ -69,10 +69,10 @@ Cypress.Commands.add('clearDefaults', () => {
     preserve: [],
   });
 
-  //Clear localStrage
+  // Clear localStrage
   cy.clearLocalStorage();
 
-  //Clear Cookies
+  // Clear Cookies
   cy.clearCookies();
 });
 

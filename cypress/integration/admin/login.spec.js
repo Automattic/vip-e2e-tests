@@ -4,7 +4,7 @@ describe('Logging In - WordPress Admin', () => {
   const password = Cypress.env('password');
 
   // it is ok for the username to be visible in the Command Log
-  expect(username, 'username was set').to.be.a('string').and.not.be.empty;
+  expect(username, 'username was set').to.be.a('string');
   // but the password value should not be shown
   if (typeof password !== 'string' || !password) {
     throw new Error('Missing password value, set in cypress.env.json');
@@ -48,8 +48,8 @@ describe('Logging In - WordPress Admin', () => {
           `${
             Cypress.config().baseUrl
           }/wp-login.php?redirect_to=${encodeURIComponent(
-            Cypress.config().baseUrl
-          )}%2Fwp-admin%2F&reauth=1`
+            Cypress.config().baseUrl,
+          )}%2Fwp-admin%2F&reauth=1`,
         );
       });
     });
@@ -71,7 +71,7 @@ describe('Logging In - WordPress Admin', () => {
         .should('be.visible')
         .and(
           'contain',
-          'Error: The username jane.wordpress is not registered on this site. If you are unsure of your username, try your email address instead.'
+          'Error: The username jane.wordpress is not registered on this site. If you are unsure of your username, try your email address instead.',
         );
 
       // and still be on the same URL

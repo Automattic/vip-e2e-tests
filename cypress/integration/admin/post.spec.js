@@ -11,7 +11,7 @@ describe('WordPress Editor Tests', () => {
       cy.visit('wp-admin/post-new.php');
       cy.get('.editor-post-publish-button__button').should(
         'contain',
-        'Publish'
+        'Publish',
       );
     });
 
@@ -22,31 +22,31 @@ describe('WordPress Editor Tests', () => {
     context("Let's write a post", () => {
       it('can write a post', () => {
         cy.get('.editor-post-title__input').type(
-          'My totally awesome post'
+          'My totally awesome post',
         );
         cy.get('.block-editor-block-list__layout').type(
-          'Here is the first paragraph{enter}Here is the second!'
+          'Here is the first paragraph{enter}Here is the second!',
         );
       });
 
       it('can update some paragraph options', () => {
         cy.get(
-          '.block-editor-panel-color-gradient-settings__panel-title'
+          '.block-editor-panel-color-gradient-settings__panel-title',
         ).click();
         cy.wait(500);
         document.querySelectorAll(
-          '.components-base-control__field  .components-circular-option-picker .components-circular-option-picker__option'
+          '.components-base-control__field  .components-circular-option-picker .components-circular-option-picker__option',
         );
 
         cy.get(
-          '.components-base-control__field  .components-circular-option-picker'
+          '.components-base-control__field  .components-circular-option-picker',
         )
           .first()
           .find('.components-circular-option-picker__option')
           .last()
           .click();
         cy.get(
-          '.components-base-control__field  .components-circular-option-picker'
+          '.components-base-control__field  .components-circular-option-picker',
         )
           .last()
           .find('.components-circular-option-picker__option')
