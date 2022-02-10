@@ -1,9 +1,9 @@
 {
   "viewportWidth": 1000,
   "viewportHeight": 660,
-  "baseUrl": "https://test-bed.lndo.site",
+  "baseUrl": "http://localhost:8000",
   "env": {
-    "username": "testuser",
-    "password": ""
+    "username": "admin",
+    "password": "password"
   }
 }
