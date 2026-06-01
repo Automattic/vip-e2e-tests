@@ -16,5 +16,9 @@
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-cypress": "^2.11.1",
     "eslint-plugin-import": "^2.22.0"
+  },
+  "overrides": {
+    "form-data": "2.5.5",
+    "minimist": "1.2.8"
   }
 }
